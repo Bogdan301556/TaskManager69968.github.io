@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Moje zadania</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f7f9fc;
+      color: #333;
+    }
+
+    header {
+      background: #4a90e2;
+      color: white;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      margin: 0;
+    }
+
+    header button {
+      padding: 0.5rem 1rem;
+      margin-left: 0.5rem;
+      border: none;
+      border-radius: 5px;
+      background: #357ab8;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    header button:hover {
+      background: #2c5f90;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      background: #f1f3f6;
+      padding: 0.5rem;
+    }
+
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #4a90e2;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    section {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 70vh;
+      padding: 2rem;
+    }
+
+    article {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 500px;
+    }
+
+    #userStatus {
+      font-weight: bold;
+      margin-bottom: 1rem;
+      color: green;
+    }
+
+    #taskInput {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    #addTaskBtn {
+      width: 100%;
+      padding: 0.75rem;
+      background: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-bottom: 1rem;
+    }
+
+    #addTaskBtn:hover {
+      background: #357ab8;
+    }
+
+    #taskList {
+      list-style: none;
+      padding: 0;
+    }
+
+    #taskList li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    #taskList li button {
+      background: red;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 0.25rem 0.5rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    #taskList li button:hover {
+      background: darkred;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #f1f3f6;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Moje zadania</h1>
+  <div>
+    <button id="loginBtn">Zaloguj się</button>
+    <button id="logoutBtn" style="display:none;">Wyloguj</button>
+  </div>
+</header>
+
+<nav>
+  <a href="index.html">Strona główna</a>
+  <a href="tasks.html">Moje zadania</a>
+</nav>
+
+<section>
+  <article>
+    <p id="userStatus"></p>
+
+    <input type="text" id="taskInput" placeholder="Nowe zadanie" />
+    <button id="addTaskBtn">Dodaj</button>
+
+    <ul id="taskList"></ul>
+  </article>
+</section>
+
+<footer>
+  <p>© 2026 Menedżer Zadań</p>
+</footer>
+
+<script src="js/tasks.js"></script>
+<script>
+  // Login/Logout кнопки
+  const token = localStorage.getItem("token");
+  const loginBtn = document.getElementById("loginBtn");
+  const logoutBtn = document.getElementById("logoutBtn");
+  const userStatus = document.getElementById("userStatus");
+
+  if (token) {
+    if (loginBtn) loginBtn.style.display = "none";
+    if (logoutBtn) {
+      logoutBtn.style.display = "inline-block";
+      logoutBtn.addEventListener("click", () => {
+        localStorage.removeItem("token");
+        window.location.reload();
+      });
+    }
+    userStatus.textContent = "Jesteś zalogowany ✅";
+  } else {
+    if (loginBtn) loginBtn.style.display = "inline-block";
+    if (logoutBtn) logoutBtn.style.display = "none";
+    userStatus.textContent = "Nie jesteś zalogowany ❌";
+  }
+</script>
+
+</body>
+</html>
